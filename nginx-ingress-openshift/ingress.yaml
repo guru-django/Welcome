@@ -6,7 +6,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: <your-ingress-domain>  # e.g., example.com or from OpenShift Playground
+  - host: https://api.crc.testing  # e.g., example.com or from OpenShift Playground
     http:
       paths:
       - path: /DevOps
