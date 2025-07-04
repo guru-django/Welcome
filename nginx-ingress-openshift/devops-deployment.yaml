@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: devops
-        image: dearguru95/nginx:devops-v1
+        image: dearguru95/nginx:devops-v2
         ports:
-        - containerPort: 80
+        - containerPort: 8080
