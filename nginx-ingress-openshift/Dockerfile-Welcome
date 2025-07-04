@@ -3,12 +3,9 @@ FROM nginx:alpine
 # Copy the HTML file
 COPY hello.html /usr/share/nginx/html/index.html
 
-# Switch to root to fix permissions
-USER root
+# Fix permissions for OpenShift (non-root UID)
+RUN mkdir -p /var/cache/nginx/client_temp && \
+    chmod -R g+rwX /var/cache/nginx /etc/nginx /usr/share/nginx/html && \
+    chgrp -R 0 /var/cache/nginx /etc/nginx /usr/share/nginx/html
 
-# Create cache directory and fix permissions
-RUN mkdir -p /var/cache/nginx/client_temp \
- && chown -R 1000:1000 /var/cache/nginx /etc/nginx /usr/share/nginx/html
-
-# Drop to a non-root user compatible with OpenShift
-USER 1000
+# No USER directive; let OpenShift assign a UID
