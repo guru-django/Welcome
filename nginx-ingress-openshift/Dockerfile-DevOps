@@ -3,12 +3,10 @@ FROM nginx:alpine
 # Copy the HTML file
 COPY devops.html /usr/share/nginx/html/index.html
 
-# Run as root temporarily to fix permissions
+# Run as root to fix permissions
 USER root
 
-# Create and set permissions on required directories
-RUN mkdir -p /var/cache/nginx/client_temp \
- && chown -R 1000:1000 /var/cache/nginx /etc/nginx /usr/share/nginx/html
-
-# Drop to non-root user
-USER 1000
+# Set group ownership and permissions
+RUN mkdir -p /var/cache/nginx/client_temp && \
+    chgrp -R 0 /var/cache/nginx /etc/nginx /usr/share/nginx/html && \
+    chmod -R g+rwX /var/cache/nginx /etc/nginx /usr/share/nginx/html
