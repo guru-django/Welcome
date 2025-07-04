@@ -1,12 +1,12 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nginx-ingress
+  name: custom-nginx-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-  - host: yourdomain.com
+  - host: <your-ingress-domain>  # e.g., example.com or from OpenShift Playground
     http:
       paths:
       - path: /DevOps
