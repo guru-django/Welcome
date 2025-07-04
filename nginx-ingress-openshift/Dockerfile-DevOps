@@ -1,12 +1,14 @@
 FROM nginx:alpine
 
-# Copy the HTML file
+# Copy custom NGINX config that uses port 8080
+COPY nginx.conf /etc/nginx/nginx.conf
 COPY devops.html /usr/share/nginx/html/index.html
 
-# Run as root to fix permissions
+# Fix permissions
 USER root
-
-# Set group ownership and permissions
 RUN mkdir -p /var/cache/nginx/client_temp && \
     chgrp -R 0 /var/cache/nginx /etc/nginx /usr/share/nginx/html && \
     chmod -R g+rwX /var/cache/nginx /etc/nginx /usr/share/nginx/html
+
+# Drop root privileges
+USER 1001
