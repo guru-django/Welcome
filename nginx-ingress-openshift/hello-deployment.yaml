@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: hello
-        image: dearguru95/nginx:welcome
+        image: dearguru95/nginx:welcome-v1
         ports:
         - containerPort: 80
