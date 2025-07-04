@@ -1,2 +1,14 @@
 FROM nginx:alpine
+
+# Copy the HTML file
 COPY hello.html /usr/share/nginx/html/index.html
+
+# Switch to root to fix permissions
+USER root
+
+# Create cache directory and fix permissions
+RUN mkdir -p /var/cache/nginx/client_temp \
+ && chown -R 1000:1000 /var/cache/nginx /etc/nginx /usr/share/nginx/html
+
+# Drop to a non-root user compatible with OpenShift
+USER 1000
